@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+
+{% block head %}
+<script src="/js/index.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<div>
+  <h1>Main Page</h1>
+
+  {% if isLoggedIn %}
+  <div>
+    <form class="pure-form pure-form-stacked" onsubmit="submitReceipt(); return false;">
+      <h2>Add receipt here:</h2>
+
+      <label id="station-select-label" for="station-select">Gas Station</label>
+      <select id="station-select">
+        {% for station in gasStations %}
+        <option value="{{ station.stationId }}">{{ station.company }}</option>
+        {% endfor %}
+      </select>
+
+      <label id="gallon-input-label" for="gallon-input">Gallons</label>
+      <input id="gallon-input" type="number" />
+
+      <label id="ppg-input-label" for="ppg-input">Price per Gallon</label>
+      <input id="ppg-input" type="number" />
+
+      <input type="submit" class="pure-button" value="Add Gas Data" />
+    </form>
+  </div>
+
+  {% else %}
+  <div>
+    <h2>You are not logged in</h2>
+  </div>
+  {% endif %}
+
+
+</div>
+{% endblock %}

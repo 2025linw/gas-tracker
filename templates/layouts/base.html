@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+    integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous" />
+
+  <link href="/css/fontawesome.min.css" rel="stylesheet" />
+  <link href="/css/solid.min.css" rel="stylesheet" />
+  <link href="/css/brands.min.css" rel="stylesheet" />
+
+  <link href="/css/base.css" rel="stylesheet" />
+  <script src="/js/base.js" defer></script>
+
+  {% block head %}{% endblock %}
+
+  <title>Gas Tracker</title>
+</head>
+
+<body>
+  <div id="page-header">
+    <nav class="pure-menu pure-menu-horizontal">
+      <a href="/" class="pure-menu-heading pure-menu-link">Logo Here</a>
+
+      <ul class="pure-menu-list">
+        {% if isLoggedIn %}
+        <li id="vehicle-selector" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+          <span id="current-vehicle" class="pure-menu-link"></span>
+
+          <ul class="pure-menu-children">
+            {% for vehicle in vehicles %}
+            <li class="pure-menu-item">
+              <span id="vehicle-{{ vehicle.vehicleId }}" class="pure-menu-link"
+                onclick="selectVehicle(this)">
+                <i class="fas fa-car"></i> {{ vehicle.label }}
+              </span>
+            </li>
+            {% endfor %}
+
+            <li class="pure-menu-item">
+              <a href="/vehicles" class="pure-menu-link">All Vehicles</a>
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+
+        {% if isLoggedIn %}
+        <li class="pure-menu-item">
+          <a href="/profile" class="pure-menu-link">
+            <i class="fas fa-user"></i> Your Profile
+          </a>
+        </li>
+        <li class="pure-menu-item">
+          <a href="/logout" class="pure-menu-link">
+            Logout
+          </a>
+        </li>
+        {% else %}
+        <li class="pure-menu-item">
+          <a href="/login" class="pure-menu-link">
+            Login
+          </a>
+        </li>
+        <li class="pure-menu-item">
+          <a href="/login-test" class="pure-menu-link">
+            Test Login
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+
+  <div id="page-content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+
+</html>
